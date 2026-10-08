@@ -1,0 +1,25 @@
+class Solution {
+    public int tribonacci(int n) {
+        return tribo(n, new HashMap<Integer, Integer>());
+    }
+
+    private int tribo(int currentNum, HashMap<Integer, Integer> memo){
+
+        if(currentNum==0)
+           return 0;
+
+        if(currentNum==1 || currentNum==2)
+           return 1;
+
+        int currentKey= currentNum;
+
+        if(memo.containsKey(currentKey))
+          return memo.get(currentKey);
+
+        int TotalSum= tribo(currentNum-1, memo) +tribo(currentNum-2, memo) + tribo(currentNum-3, memo);
+
+        memo.put(currentKey, TotalSum);
+
+        return memo.get(currentKey);
+    }
+}
