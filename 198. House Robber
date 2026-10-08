@@ -1,0 +1,31 @@
+class Solution {
+    public int rob(int[] nums) {
+        return MaxMoney(nums, 0, new HashMap<Integer, Integer>());
+    }
+
+    private int MaxMoney(int[] nums, int CurrentHouse, HashMap<Integer, Integer> memo){
+
+        //base condition:
+
+        if(CurrentHouse >= nums.length)
+          return 0;
+
+        //declaring a key for dp
+
+        int CurrentKey= CurrentHouse;
+
+        //checking if it is saved
+
+        if(memo.containsKey(CurrentKey))
+           return memo.get(CurrentKey);
+
+        int rob = nums[CurrentHouse]+ MaxMoney(nums, CurrentHouse+2, memo);
+
+        int NoRob = MaxMoney(nums, CurrentHouse+1, memo);
+
+        memo.put(CurrentKey, Math.max(rob, NoRob));
+
+        return memo.get(CurrentKey);
+        
+    }
+}
