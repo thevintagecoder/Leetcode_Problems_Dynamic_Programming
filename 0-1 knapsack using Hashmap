@@ -1,0 +1,39 @@
+import java.util.HashMap;
+
+class Solution {
+    public int knapsack(int W, int val[], int wt[]) {
+        // code here
+        
+         HashMap<String, Integer> memo = new HashMap<>() ;
+        int currentItem=0;
+        return maxProfit(wt, val, W, currentItem, memo);
+        
+    }
+    
+    
+    private int maxProfit(int wt[], int val[], int W,int currentItem, HashMap<String, Integer> memo){
+        
+        //base case 
+        if(currentItem == wt.length )
+           return 0;
+           
+        int currentWeight= wt[currentItem];
+        int currentProfit = val[currentItem];
+        
+        String currentKey= Integer.toString(currentItem)+ "-" + Integer.toString(W);
+        
+        if(memo.containsKey(currentKey))
+           return memo.get(currentKey);
+           
+        int consider=0;
+           
+        if(currentWeight <= W)
+           consider= currentProfit + maxProfit(wt, val, W- currentWeight, currentItem+1, memo);
+           
+        int notConsider= maxProfit(wt, val, W,  currentItem+1, memo);
+        
+        memo.put(currentKey, Math.max(consider, notConsider));
+        
+        return memo.get(currentKey);
+    }
+}
